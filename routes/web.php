@@ -20,3 +20,10 @@ Route::post('login', 'Auth\LoginController@login');
 Route::post('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::resource('registro','RegistroController');
+Route::resource('asistencia','AsistenciaController');
+Route::post('asistencia/buscar',[
+    'uses' => 'AsistenciaController@buscar',
+    'as' => 'asistencia.buscar'
+]);

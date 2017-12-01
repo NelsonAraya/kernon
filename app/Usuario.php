@@ -15,7 +15,7 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'run','dv','nombres','apellidop','apellidom','fecha_nacimiento','telefono','direccion','sexo','email','empresa_id','cargo_id'
+        'nombres','apellidop','apellidom','fecha_nacimiento','telefono','direccion','sexo','email','empresa_id','cargo_id'
     ];
 
     /**
@@ -38,5 +38,8 @@ class Usuario extends Authenticatable
 
     public function asistencias(){
         return $this->hasMany(Asistencia_usuario::class);
+    }
+    public function runCompleto(){
+        return $this->run.'-'.$this->dv;
     }
 }
