@@ -27,3 +27,8 @@ Route::post('asistencia/buscar',[
     'uses' => 'AsistenciaController@buscar',
     'as' => 'asistencia.buscar'
 ]);
+Route::resource('evaluacion','EvaluacionController');
+Route::get('evaluacion/s',[
+    'uses' => 'EvaluacionController@buscar',
+    'as' => 'evaluacion.buscar'
+]);

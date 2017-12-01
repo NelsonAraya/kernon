@@ -42,4 +42,10 @@ class Usuario extends Authenticatable
     public function runCompleto(){
         return $this->run.'-'.$this->dv;
     }
+    
+    public function scopeSearch($query, $s){
+        return $query->where('nombres','like', '%'.$s.'%')
+                     ->orWhere('apellidop','like','%'.$s.'%')
+                     ->orWhere('apellidom','like','%'.$s.'%');
+    }
 }

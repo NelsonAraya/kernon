@@ -29,6 +29,8 @@
                                         <li><a href="{{ route('asistencia.create') }}">Asistencia</a></li>
                                     </ul>
                                 </li>
+                                 <li class="@if(@$ActiveMenu=='evaluacion')active @endif">
+                                <a href="{{ route('evaluacion.index')}}">Evaluacion</a></li>
                                 <li class="@if(@$ActiveMenu=='asistencia')active @endif">
                                 <a href="{{ route('asistencia.index') }}" target="_blank" >Asistencia</a></li>
                         @endauth
