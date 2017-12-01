@@ -24,7 +24,7 @@ class CreateUsuariosTable extends Migration
             $table->integer('telefono');
             $table->string('direccion');
             $table->enum('sexo',['F', 'M']);
-            $table->string('email')->unique();
+            $table->string('email',150)->unique();
             $table->string('password');
             $table->integer('empresa_id')->unsigned();
             $table->foreign('empresa_id')->references('id')->on('empresas');

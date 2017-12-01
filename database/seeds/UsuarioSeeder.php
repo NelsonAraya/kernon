@@ -23,8 +23,8 @@ class UsuarioSeeder extends Seeder
 	    $p->sexo='M';
 	    $p->email='a@b.cl';
 	    $p->password= bcrypt('kernon');
-	    $p1->empresa()->associate(App\Empresa::find(1));
-	    $p1->cargo()->associate(App\Cargo::find(1));
+	    $p->empresa()->associate(App\Empresa::find(1));
+	    $p->cargo()->associate(App\Cargo::find(1));
 	    $p->save();
     }
 }
