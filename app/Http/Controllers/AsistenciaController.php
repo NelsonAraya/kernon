@@ -99,7 +99,7 @@ class AsistenciaController extends Controller
 
         $usu=Usuario::where('empresa_id',$request->empresa_id)->paginate(10);
         foreach ($usu as $key => $row) {
-            $count = Asistencia_usuario::whereBetween('created_at',[$request->inicio, $request->termino])
+            $count = Asistencia_usuario::whereBetween('created_at',[$request->inicio, $request->termino.' 23:59:59'])
             ->where('usuario_id',$row->id)->count();
             $usu[$key]->cantidad = $count;
         }

@@ -5,43 +5,41 @@
 @section('content')
 <div class="container">
 @include('flash::message')
-            <form class="form-horizontal" method="GET" 
-            action="{{ route('evaluacion.index')}}">
+            <h3>FICHAS DEL USUARIO {{ $usu->nombreCompleto() }}</h3>
+            <form class="form-horizontal" method="GET" action="{{ route('evaluacion.buscar')}}">
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label for="buscar">Buscar</label>
-                        <input type="text" id="buscar" name="s" placeholder="busqueda por nombres" class="form-control" autocomplete="off">
+                        <input type="text" id="buscar" name="s" placeholder="keyword" class="form-control" autocomplete="off">
                     </div>
                     <div class="col-md-1">
                         <label for="buscar">Buscar</label>
                         <button class="btn btn-success" type="submit">Buscar</button>
                     </div>
+                    <div class="col-md-1">
+                        <label>Nuevo</label>
+                        <a href="{{ route('evaluacion.edit',$usu->id) }}" class="btn btn-info" role="button">Nueva Ficha</a>
+                    </div>   
                 </div>
             </form> 
-            <br>  
+            <br>
             <div class="panel panel-primary">
-                <div class="panel-heading">LIstado Usuario</div>
+                <div class="panel-heading">LIstado de Fichas</div>
                 <div class="panel-body">
                     <div class="table-responsive">
                         <table class="table table-hover">
                             <thead>
                             <tr>
-                                <th>R.U.N</th>
-                                <th>NOMBRE</th>
-                                <th>EMPRESA</th>
-                                <th>CARGO</th>
-                                <th>ACCIONES</th>
+                                <th>FECHA FICHA</th>
+                                <th>ACCION</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach ($usu as $row)
+                            @foreach ($ficha as $row)
                                 <tr>
-                                    <td> {{ $row->runCompleto() }} </td>
-                                    <td>{{ $row->nombreCompleto() }}  </td>
-                                    <td>{{ $row->empresa->nombre }}  </td>
-                                    <td>{{ $row->cargo->nombre }}  </td>
+                                    <td> {{ $row->fecha_ficha }} </td>
                                     <td>
-                                        <a href="{{ route('evaluacion.show',$row->id) }}" class="btn btn-success justify-content-center">
+                                        <a href="{{ route('evaluacion.editar',$row->id) }}" class="btn btn-success justify-content-center">
                                             <span class="glyphicon glyphicon-heart"></span>
                                         </a>
                                         <a href="" class="btn btn-danger justify-content-center">
@@ -52,9 +50,9 @@
                             @endforeach
                             </tbody>
                         </table>
-                        {{ $usu->links() }}
+                        {{ $ficha->render() }}
                     </div>
                 </div>
-            </div>            
+            </div>              
 </div>
 @endsection  		

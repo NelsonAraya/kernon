@@ -5,8 +5,25 @@
 @section('content')
 <div class="container">
 @include('flash::message')
-            <a class="btn btn-success" href="{{ route('registro.create')}}">Registrar</a>
-            <br><br>
+            <form class="form-horizontal" method="GET" 
+            action="{{ route('registro.index')}}">
+            
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="buscar">Buscar</label>
+                        <input type="text" id="buscar" name="s" placeholder="busqueda por nombres" class="form-control" autocomplete="off">
+                    </div>
+                    <div class="col-md-1">
+                        <label for="buscar">Buscar</label>
+                        <button class="btn btn-success" type="submit">Buscar</button>
+                    </div>
+                    <div class="col-md-1">
+                        <label>Registrar</label>
+                        <a class="btn btn-info" href="{{ route('registro.create')}}">Registrar</a>
+                    </div>
+                </div>
+            </form> 
+            <br>  
             <div class="panel panel-primary">
                 <div class="panel-heading">LIstado Usuario</div>
                 <div class="panel-body">
@@ -18,22 +35,19 @@
                                 <th>NOMBRE</th>
                                 <th>EMPRESA</th>
                                 <th>CARGO</th>
-                                <th>ACCIONES</th>
+                                <th>EDITAR</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach ($usu as $row)
                                 <tr>
                                     <td> {{ $row->runCompleto() }} </td>
-                                    <td>{{ $row->nombres }}  </td>
+                                    <td>{{ $row->nombreCompleto() }}  </td>
                                     <td>{{ $row->empresa->nombre }}  </td>
                                     <td>{{ $row->cargo->nombre }}  </td>
                                     <td>
                                         <a href="" class="btn btn-success justify-content-center">
-                                            <i class="fa fa-heartbeat" aria-hidden="true"></i>
-                                        </a>
-                                        <a href="" class="btn btn-danger justify-content-center">
-                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                            <span class="glyphicon glyphicon-edit"></span>
                                         </a>
                                     </td>
                                 </tr>

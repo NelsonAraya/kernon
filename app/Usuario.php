@@ -42,10 +42,18 @@ class Usuario extends Authenticatable
     public function runCompleto(){
         return $this->run.'-'.$this->dv;
     }
+    public function nombreCompleto(){
+        return $this->nombres.' '.$this->apellidop.' '.$this->apellidom;
+    }
+    public function fichas(){
+        return $this->hasMany(Ficha::class);
+    }
     
     public function scopeSearch($query, $s){
+        if($s != ""){
         return $query->where('nombres','like', '%'.$s.'%')
                      ->orWhere('apellidop','like','%'.$s.'%')
                      ->orWhere('apellidom','like','%'.$s.'%');
+        }
     }
 }

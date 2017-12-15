@@ -13,9 +13,9 @@ class RegistroController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $usuario = Usuario::orderBy('nombres','ASC')->paginate(10);
+        $usuario = Usuario::Search($request->s)->paginate(10);
         return view('registro.index',['usu'=>$usuario,'ActiveMenu'=>'registro']);
     }
 
