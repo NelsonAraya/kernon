@@ -32,7 +32,6 @@
    @yield('css')
 </head>
 <body>
-     @include('layouts.nav')
         @yield('content')
         <!-- Scripts -->
     <script src="{{ asset('plugins/jquery/jquery-3.2.1.min.js') }}"></script>

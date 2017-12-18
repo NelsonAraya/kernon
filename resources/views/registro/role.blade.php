@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@extends('layouts.nav')
-
 @section('css')
 <style type="text/css">
 	/* The switch - the box around the slider */

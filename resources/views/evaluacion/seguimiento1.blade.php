@@ -1,7 +1,5 @@
 @extends('layouts.app')
 
-@extends('layouts.nav')
-
 @section('content')
 <div class="container">
 @include('flash::message')
