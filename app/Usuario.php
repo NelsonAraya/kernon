@@ -40,10 +40,14 @@ class Usuario extends Authenticatable
         return $this->hasMany(Asistencia_usuario::class);
     }
     public function runCompleto(){
-        return $this->run.'-'.$this->dv;
+        return $this->id.'-'.$this->dv;
     }
     public function nombreCompleto(){
-        return $this->nombres.' '.$this->apellidop.' '.$this->apellidom;
+        return ucwords($this->nombres.' '.$this->apellidop.' '.$this->apellidom);
+    }
+    public function nombreSimple(){
+        $nombres= explode(' ',$this->nombres)[0];
+        return ucwords($nombres.' '.$this->apellidop);
     }
     public function fichas(){
         return $this->hasMany(Ficha::class);
@@ -55,5 +59,34 @@ class Usuario extends Authenticatable
                      ->orWhere('apellidop','like','%'.$s.'%')
                      ->orWhere('apellidom','like','%'.$s.'%');
         }
+    }
+    public function roles(){
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+    * @param string|array $roles
+    */
+    public function authorizeRoles($roles){
+        if (is_array($roles)) {
+        return $this->hasAnyRole($roles) ||
+            abort(401, 'This action is unauthorized.');
+        }
+        return $this->hasRole($roles) ||
+        abort(401, 'This action is unauthorized.');
+    }
+    /**
+    * Check multiple roles
+    * @param array $roles
+    */
+    public function hasAnyRole($roles){
+        return null !== $this->roles()->whereIn('nombre', $roles)->first();
+    }
+    /**
+    * Check one role
+    * @param string $role
+    */
+    public function hasRole($role){
+        return null !== $this->roles()->where('nombre', $role)->first();
     }
 }

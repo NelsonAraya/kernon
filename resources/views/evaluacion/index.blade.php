@@ -30,7 +30,7 @@
                                 <th>NOMBRE</th>
                                 <th>EMPRESA</th>
                                 <th>CARGO</th>
-                                <th>ACCIONES</th>
+                                <th>EVALUAR</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -43,9 +43,6 @@
                                     <td>
                                         <a href="{{ route('evaluacion.show',$row->id) }}" class="btn btn-success justify-content-center">
                                             <span class="glyphicon glyphicon-heart"></span>
-                                        </a>
-                                        <a href="" class="btn btn-danger justify-content-center">
-                                            <span class="glyphicon glyphicon-trash"></span>
                                         </a>
                                     </td>
                                 </tr>

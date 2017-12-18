@@ -46,7 +46,18 @@ class LoginController extends Controller
             $this->username() => 'required|string',
             'password' => 'required|string'
         ]);
-        $credentials['run']=explode('-',$credentials['run'])[0];
+        
+        /*
+        * Limpiar run y dividir en ID y DV
+        */
+        
+        $credentials['id'] = str_replace('.','',$credentials['run']);
+        $credentials['id'] = str_replace('-','',$credentials['run']);
+
+        unset($credentials['run']);
+        
+        $credentials['dv'] = substr($credentials['id'], -1);
+        $credentials['id'] = substr($credentials['id'], 0, -1);
         if(Auth::attempt($credentials)){
             return redirect()->route('home');
         }else{

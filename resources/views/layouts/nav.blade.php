@@ -20,19 +20,38 @@
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
                         @auth
-                            <li class="@if(@$ActiveMenu=='registro')active @endif">
-                                <a href="{{ route('registro.index') }}">Registro</a></li>
-                                 
-                                 <li class="dropdown @if(@$ActiveMenu=='info')active @endif ">
+                        @if(Auth::user()->hasRole('registro'))
+                            <li class="@if(Route::currentRouteName()=='registro.index' OR 
+                                           Route::currentRouteName()=='registro.create' OR 
+                                           Route::currentRouteName()=='registro.roles')active @endif">
+                                <a href="{{ route('registro.index') }}">Registro</a>
+                            </li>
+                        @endif   
+                        @if(Auth::user()->hasRole('informe'))         
+                                 <li class="dropdown 
+                                 @if(Route::currentRouteName()=='informe.create' OR
+                                     Route::currentRouteName()=='informe.buscar' )active @endif ">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Informes <span class="caret"></span></a>
                                     <ul class="dropdown-menu">
-                                        <li><a href="{{ route('asistencia.create') }}">Asistencia</a></li>
+                                        <li><a href="{{ route('informe.create') }}">Asistencia</a></li>
                                     </ul>
                                 </li>
-                                 <li class="@if(@$ActiveMenu=='evaluacion')active @endif">
-                                <a href="{{ route('evaluacion.index')}}">Evaluacion</a></li>
+                         @endif 
+                         @if(Auth::user()->hasRole('evaluacion'))      
+                                 <li class="
+                                 @if(Route::currentRouteName()=='evaluacion.index' OR
+                                     Route::currentRouteName()=='evaluacion.show' OR 
+                                     Route::currentRouteName()=='evaluacion.edit' OR 
+                                     Route::currentRouteName()=='evaluacion.editar'
+                                 )active @endif">
+                                <a href="{{ route('evaluacion.index')}}">Evaluacion</a>
+                                </li>
+                        @endif
+                        @if(Auth::user()->hasRole('asistencia'))        
                                 <li class="@if(@$ActiveMenu=='asistencia')active @endif">
-                                <a href="{{ route('asistencia.index') }}" target="_blank" >Asistencia</a></li>
+                                <a href="{{ route('asistencia.index') }}" target="_blank" >Asistencia</a>
+                                </li>
+                         @endif       
                         @endauth
                     </ul>
 
@@ -44,7 +63,7 @@
                         @else
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
-                                    {{ Auth::user()->nombres }} <span class="caret"></span>
+                                    {{ Auth::user()->nombreSimple() }} <span class="caret"></span>
                                 </a>
 
                                 <ul class="dropdown-menu">

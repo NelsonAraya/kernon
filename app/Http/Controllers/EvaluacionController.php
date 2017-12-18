@@ -17,7 +17,7 @@ class EvaluacionController extends Controller
     {
         $usuario = Usuario::Search($request->s)->paginate(10);
         //$usuario = Usuario::orderBy('nombres','ASC')->paginate(10);
-        return view('evaluacion.index',['usu'=>$usuario,'ActiveMenu'=>'evaluacion']);
+        return view('evaluacion.index',['usu'=>$usuario]);
     }
 
     /**
@@ -94,7 +94,7 @@ class EvaluacionController extends Controller
          $usuario = Usuario::orderBy('nombres','ASC')
                     ->Search($request->s)
                     ->paginate(10);
-        return view('evaluacion.index',['usu'=>$usuario,'ActiveMenu'=>'evaluacion']);  
+        return view('evaluacion.index',['usu'=>$usuario]);  
     }
 
     public function crear(Request $request,$id)

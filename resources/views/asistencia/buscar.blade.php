@@ -9,7 +9,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">Buscador</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('asistencia.buscar') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('informe.buscar') }}">
                          {{ csrf_field() }}
                          <div class="form-group row">
                              <div class="col-md-2">
@@ -56,7 +56,7 @@
                             @foreach ($usu as $row)
                                 <tr>
                                     <td> {{ $row->runCompleto() }} </td>
-                                    <td>{{ $row->nombres }}  </td>
+                                    <td>{{ $row->nombreCompleto() }}  </td>
                                     <td>{{ $row->empresa->nombre }}  </td>
                                     <td>{{ $row->cargo->nombre }}  </td>
                                     <td><b>{{ $row->cantidad }}</b></td>

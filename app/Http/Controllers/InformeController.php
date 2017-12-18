@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Usuario;
-use App\Asistencia_usuario;
 use App\Empresa;
-class AsistenciaController extends Controller
+use App\Asistencia_usuario;
+use App\Usuario;
+class InformeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class AsistenciaController extends Controller
      */
     public function index()
     {
-        return view('asistencia.index');
+        //
     }
 
     /**
@@ -25,7 +25,9 @@ class AsistenciaController extends Controller
      */
     public function create()
     {
-
+        $empresa = Empresa::pluck('nombre','id');
+        return view('asistencia.buscar')
+                ->with('empresa',$empresa);
     }
 
     /**
@@ -36,19 +38,7 @@ class AsistenciaController extends Controller
      */
     public function store(Request $request)
     {
-        $run = str_replace('.','',$request->run);
-        $run = str_replace('-','',$request->run);
-
-        $dv = substr($run, -1);
-        $id = substr($run, 0, -1);
-        $obj= Usuario::find($id);
-        $asistencia = new Asistencia_usuario();
-        $asistencia->usuario_id=$obj->id;
-        $asistencia->save();
-
-        flash('Asistencia Registrada')->success();
-
-        return redirect()->route('asistencia.index');
+        //
     }
 
     /**
@@ -95,6 +85,17 @@ class AsistenciaController extends Controller
     {
         //
     }
+    public function buscar (Request $request){
 
-
+        $usu=Usuario::where('empresa_id',$request->empresa_id)->paginate(10);
+        foreach ($usu as $key => $row) {
+            $count = Asistencia_usuario::whereBetween('created_at',[$request->inicio, $request->termino.' 23:59:59'])
+            ->where('usuario_id',$row->id)->count();
+            $usu[$key]->cantidad = $count;
+        }
+        $empresa = Empresa::pluck('nombre','id');
+        return view('asistencia.buscar')
+                ->with('empresa',$empresa)
+                ->with('usu',$usu);
+    }
 }

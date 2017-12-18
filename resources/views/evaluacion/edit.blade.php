@@ -14,7 +14,7 @@
   					<div class="form-group row">
   						<div class="col-md-2">
   							<label for="fecha">FECHA</label>
-  							<input type="date" id="fecha" name="fecha_ficha" class="form-control" autocomplete="off">
+  							<input type="date" id="fecha" name="fecha_ficha" class="form-control" autocomplete="off" required>
   						</div>
   						<div class="col-md-1">
   							<label for="pesso">PESO</label>

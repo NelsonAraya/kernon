@@ -14,8 +14,7 @@ class CreateUsuariosTable extends Migration
     public function up()
     {
         Schema::create('usuarios', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('run')->unique();
+            $table->integer('id')->unsigned()->unique();
             $table->string('dv',1);
             $table->string('nombres');
             $table->string('apellidop');
@@ -32,6 +31,7 @@ class CreateUsuariosTable extends Migration
             $table->foreign('cargo_id')->references('id')->on('cargos');
             $table->rememberToken();
             $table->timestamps();
+            $table->primary('id');
         });
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Empresa;
 use App\Cargo;
 use App\Usuario;
+use App\Role;
 class RegistroController extends Controller
 {
     /**
@@ -16,7 +17,7 @@ class RegistroController extends Controller
     public function index(Request $request)
     {
         $usuario = Usuario::Search($request->s)->paginate(10);
-        return view('registro.index',['usu'=>$usuario,'ActiveMenu'=>'registro']);
+        return view('registro.index',['usu'=>$usuario]);
     }
 
     /**
@@ -29,7 +30,6 @@ class RegistroController extends Controller
         $empresa = Empresa::pluck('nombre','id');
         $cargo = Cargo::pluck('nombre','id');
         return view('registro.create')
-                ->with('ActiveMenu','registro')
                 ->with('cargo',$cargo)
                 ->with('empresa',$empresa);
     }
@@ -43,14 +43,19 @@ class RegistroController extends Controller
     public function store(Request $request)
     {
         $usuario = new Usuario($request->all());
-        list($usuario->run, $usuario->dv)= explode('-',$request->run);
-        /*
-        $run=explode('-',$request->run)[0];
-        $dv=explode('-',$request->run)[1];
-        $usuario->run=$run;
-        $usuario->dv=$dv;
-        */
-        $usuario->password= bcrypt($usuario->run);
+        
+        $run = str_replace('.','',$request->run);
+        $run = str_replace('-','',$request->run);
+
+        $dv = substr($run, -1);
+        $id = substr($run, 0, -1);
+
+        $usuario->id=$id;
+        $usuario->dv= $dv;
+        $usuario->nombres=strtolower($usuario->nombres);
+        $usuario->apellidop=strtolower($usuario->apellidop);
+        $usuario->apellidom=strtolower($usuario->apellidom);
+        $usuario->password= bcrypt($usuario->id);
         $usuario->save();
         flash('Usuario Registrado')->success();
 
@@ -100,5 +105,25 @@ class RegistroController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function roles($id){
+        
+        $usu = Usuario::find($id);
+        $rol = Role::pluck('descripcion','id');
+        return view('registro.role')->with('usu',$usu)->with('roles',$rol);
+    }
+
+    public function permisos(Request $request,$id){
+
+        $usu = Usuario::find($id);
+        $usu->roles()->detach();
+
+        foreach ((array)$request->roles as $row){
+              $usu->roles()->attach($row);
+        }
+        flash('ermisos Actualizados Correctamente')->info();
+
+        return redirect()->route('registro.roles',$usu->id);
+        
     }
 }

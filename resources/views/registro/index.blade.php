@@ -46,6 +46,10 @@
                                     <td>{{ $row->empresa->nombre }}  </td>
                                     <td>{{ $row->cargo->nombre }}  </td>
                                     <td>
+                                        <a href="{{ route('registro.roles',$row->id)}}" 
+                                            class="btn btn-warning justify-content-center">
+                                        <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span>
+                                        </a>
                                         <a href="" class="btn btn-success justify-content-center">
                                             <span class="glyphicon glyphicon-edit"></span>
                                         </a>

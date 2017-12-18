@@ -11,6 +11,7 @@
     <title>{{ config('app.name') }}</title>
     <!-- Styles -->
    <link href="{{ asset('plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+   @yield('css')
 </head>
 <body>
     <div id="app">
